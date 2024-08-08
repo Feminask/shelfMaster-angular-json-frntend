@@ -1,0 +1,37 @@
+<div class="book-view-container">
+  <header class="page-header">
+    <h1>Book Details</h1>
+    <div class="navigation-buttons">
+      <a routerLink="/books" class="nav-button home-btn">
+        <i class="fas fa-home"></i> Home
+      </a>
+      <a routerLink="/dashboard" style="text-decoration: none;" class="nav-button dashboard-btn">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
+    </div>
+  </header>
+
+  <div class="book-details" *ngIf="bookData">
+    <div class="book-image">
+      <img [src]="bookData.img || defaultImageUrl" 
+           (error)="handleImageError($event)"
+           style="height: 500px;" 
+           alt="Book Cover" 
+           id="book-cover">
+    </div>
+    <div class="book-info">
+      <h2 id="book-title">{{ bookData.title }}</h2>
+      <p class="author">by <span id="book-author">{{ bookData.author }}</span></p>
+      <p class="genre">Genre: <span id="book-genre">{{ bookData.genre }}</span></p>
+      <p class="price">Price: $<span id="book-price">{{ bookData.price }}</span></p>
+      
+      <p class="stock" *ngIf="bookData.stock > 0">
+        In Stock: <span id="book-stock">{{ bookData.stock }} Copies</span>
+      </p>
+      <p class="stock" *ngIf="bookData.stock === 0">
+        Out of Stock
+      </p>
+      
+      <p class="description" id="book-description">{{ bookData.description }}</p>
+    </div>
+    </div>

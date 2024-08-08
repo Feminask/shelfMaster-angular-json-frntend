@@ -1,0 +1,63 @@
+
+<div *ngIf="!editView" class="profile-card">
+  <div class="profile-header">
+    <img [src]="profilePic" alt="Profile Picture" class="profile-pic">
+    <h2 class="profile-name">{{adminData.username}}</h2>
+  </div>
+  <div class="profile-info">
+    <div class="info-item">
+      <i class="fas fa-envelope"></i>
+      <span>{{adminData.email}}</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-lock"></i>
+      <span>
+        <ng-container *ngFor="let char of adminData.password.split(''); let i = index">
+          *
+        </ng-container>
+      </span>
+    </div>  </div>
+  <button (click)="edit()" class="edit-button"
+   >
+    <i class="fas fa-edit"></i> Edit Profile
+  </button>
+</div>
+
+
+
+<!-- edit profile -->
+
+<div *ngIf="editView" class="profile-container text-center">
+  <label for="img">
+    <input (change)="getFile($event)" id="img" type="file" style="display: block;opacity: 0;" >
+    <img [src] ="profilePic" alt="Profile Picture" class="profile-pic">
+  </label>
+
+  <!-- <h2>username</h2> -->
+  <form class="profile-form">
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input [(ngModel)]="adminData.username"  type="text" id="username"
+        name="username">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input [(ngModel)]="adminData.email" type="email" id="email"
+        name="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input [(ngModel)]="adminData.password" type="text" id="password"
+        name="password">
+    </div>
+    <div class="button-group">
+      <button (click)="update()" type="button" class="update-btn" 
+      >Update</button>
+      <button (click)="cancel()" type="button" class="cancel-btn"
+       >Cancel</button>
+    </div>
+  </form>
+</div>
+
+
+

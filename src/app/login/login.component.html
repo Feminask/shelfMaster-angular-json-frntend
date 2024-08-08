@@ -1,0 +1,44 @@
+<!-- <body>
+    <div class="login-container">
+      <div class="login-box">
+        <h2 class="login-title">ShelfMaster Admin Login</h2>
+        <form>
+          <div class="input-group">
+            <input type="email" id="email" placeholder="Email" required>
+          </div>
+          <div class="input-group">
+            <input type="password" id="password" placeholder="Password" required>
+          </div>
+          <button type="submit" class="login-button">Login</button>
+        </form>
+      </div>
+    </div>
+  </body> -->
+
+  <body>
+    <div class="overlay"></div>
+    <div class="login-container">
+      <h2 class="login-title">Admin Login</h2>
+      <div class="login-box">
+        <form [formGroup]="loginFormModel">
+          <div class="input-group">
+            <input formControlName="email" name="email" type="email" id="email" placeholder="Email" required>
+            <div *ngIf="loginFormModel.get('email')?.errors && loginFormModel.get('email')?.touched" 
+            class="error-message">
+         <i class="fas fa-envelope-open"></i>
+         <span>Please enter a valid email address (e.g., name@example.com).</span>
+       </div>     
+          </div>
+          <div class="input-group">
+            <input formControlName="psw" name="password" type="password" id="password" placeholder="Password" required>
+            <div *ngIf="loginFormModel.get('psw')?.errors && loginFormModel.get('psw')?.touched" 
+            class="error-message">
+         <i class="fas fa-exclamation-circle"></i>
+         <span>Password must contain a mix of letters and numbers for enhanced security.</span>
+       </div>
+          </div>
+          <button (click)="login()" type="submit" class="login-button">Login</button>
+        </form>
+      </div>
+    </div>
+  </body>

@@ -1,0 +1,91 @@
+<div class="dashboard">
+  <button class="sidebar-toggle" (click)="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav class="sidebar" [class.active]="sidebarActive">
+    <a routerLink="/books" style="text-decoration: none;" class="nav-item fade-in nav-link">
+      <i class="fas fa-home"></i> Home
+    </a>
+   
+    <a routerLink="/books/add" class="nav-item fade-in nav-link">
+      <i class="fas fa-plus"></i> Add Book
+    </a>
+    <a routerLink="/dashboard" class="nav-item fade-in nav-link">
+      <i class="fas fa-tachometer-alt"></i> Dashboard
+    </a>
+    <a (click)="logout()" class="nav-item fade-in nav-link">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </nav>
+
+  <main class="main-content">
+    <h1>Manage Books</h1>
+
+    <div class="search-filter-container">
+      <input [(ngModel)]="searchData" name="search" type="text" class="search-bar" placeholder="Search books by title or author...">
+      <div class="filter-sort">
+        <div class="filter-dropdown">
+          <!-- Filter Dropdown -->
+          <button class="btn filter-select-wrapper btn-border" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-filter me-2"></i> Filter by Stock
+          </button>
+          <ul style="background-color: #4d8686;" class="dropdown-menu text-center" aria-labelledby="filterDropdown">
+            <li (click)="changeFilterData('instock')"><a class="dropdown-item nav-link">In Stock</a></li>
+            <li (click)="changeFilterData('outofstock')"><a class="dropdown-item nav-link">Out of Stock</a></li>
+            <li (click)="changeFilterData('all')"><a class="dropdown-item nav-link">All</a></li>
+          </ul>
+        </div>
+        <button (click)="sortNames()" class="sort-btn">
+          <i class="fas fa-sort"></i> Sort
+        </button>
+      </div>
+    </div>
+
+    <div class="table-container" style="overflow-x:auto;">
+      <table class="book-table">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of allBooks | filter: filterData | search: searchData | sort: sortData |  paginate: { itemsPerPage: 5, currentPage: p }; let j = index">
+            <td data-label="Index">{{j + 1}}</td>
+          
+                <td data-label="Title">{{i.title}}</td>
+                <td data-label="Title">{{i.author}}</td>
+              <td data-label="Genre">{{i.genre}}</td>
+              <td data-label="Price">${{i.price}}</td>
+              <td data-label="Status">
+               <a  style="text-decoration: none;" routerLink="/books/{{i.id}}/singleview">
+                  <span class="status" [ngClass]="i.stock > 0 ? 'in-stock' : 'out-of-stock'">
+                    {{ i.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+                  </span>
+               </a>
+              </td>
+          
+            <td data-label="Actions">
+              <a routerLink="/books/{{i.id}}/edit">
+                <button class="btn edit-btn"><i class="fas fa-edit"></i> </button>
+              </a>
+              <button (click)="deleteBook(i.id)" class="btn delete-btn"><i class="fas fa-trash"></i> </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+  </div>
+
+  <div  style="color: #4d8686" class="text-center mt-4">
+    <pagination-controls   (pageChange)="p = $event"></pagination-controls>
+
+</div>  
+
+  </main>
+</div>

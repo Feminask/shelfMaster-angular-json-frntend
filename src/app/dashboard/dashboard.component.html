@@ -1,0 +1,54 @@
+
+ <!-- <div class="dashboard">
+  <button class="sidebar-toggle" (click)="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav class="sidebar">
+    <a routerLink="/books" style="text-decoration: none;" class="nav-item fade-in nav-link">
+      <i class="fas fa-home"></i> Home
+    </a>
+    <a routerLink="/books/add" class="nav-item fade-in nav-link">
+      <i class="fas fa-plus"></i> Add Book
+    </a>
+    <a routerLink="/books/manage-books" class="nav-item fade-in nav-link">
+      <i class="fas fa-cogs"></i> Manage Books
+    </a>
+    <a href="#" class="nav-item fade-in nav-link">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </nav>  <main class="main-content">
+    <div class="chart-container fade-in">
+      <h2>Book Statistics</h2>
+     Chart component will be inserted here -->
+    <!-- </div>
+    <app-profile class="fade-in"></app-profile>
+  </main>
+</div> --> 
+
+
+<div class="dashboard">
+  <button class="sidebar-toggle" (click)="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+  <nav class="sidebar" [class.active]="sidebarActive">
+    <a routerLink="/books" style="text-decoration: none;" class="nav-item fade-in nav-link">
+      <i class="fas fa-home"></i> Home
+    </a>
+    <a routerLink="/books/add" class="nav-item fade-in nav-link">
+      <i class="fas fa-plus"></i> Add Book
+    </a>
+    <a routerLink="/books/manage-books" class="nav-item fade-in nav-link">
+      <i class="fas fa-cogs"></i> Manage Books
+    </a>
+    <a (click)="logout()" class="nav-item fade-in nav-link">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </nav>
+  <main class="main-content">
+    <div class="chart-container fade-in">
+      <h2>Book Statistics</h2>
+      <app-graph></app-graph>
+    </div>
+    <app-profile class="fade-in"></app-profile>
+  </main>
+</div>

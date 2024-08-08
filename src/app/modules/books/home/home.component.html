@@ -1,0 +1,117 @@
+<!-- <body>
+    <div class="home-container">
+        <header class="header">
+            <h1><i class="fas fa-book"></i> Book Store</h1>
+<a style="text-decoration: none;" routerLink="/dashboard">
+                <button class="dashboard-btn">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </button>
+    
+</a>        </header>
+
+        <div class="search-filter-container">
+            <input type="text" class="search-bar" placeholder="Search books...">
+            <div class="filter-sort">
+                    <div class="filter-dropdown" >
+                        <button style="color: white;" class="btn filter-select-wrapper  btn-border" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa-solid fa-filter me-2"></i>Filter by Genre
+                        </button>
+                        <ul style="background-color: #466a6ae5; border: none;"  class="dropdown-menu text-center" aria-labelledby="filterDropdown">
+                          <li><a class="dropdown-item nav-link" >Fantasy</a></li>
+                          <li><a class="dropdown-item nav-link" >Mystery</a></li>
+                          <li><a class="dropdown-item nav-link" >Romance</a></li>
+                          <li><a class="dropdown-item nav-link" >Fiction</a></li>
+                          <li><a class="dropdown-item nav-link" >Thriller</a></li>
+                          <li><a class="dropdown-item nav-link" >Other</a></li>
+                          <li><a class="dropdown-item nav-link" >All</a></li>
+
+
+
+          
+                        </ul>
+                      </div>
+           
+                <button class="sort-btn">
+                    <i class="fas fa-sort"></i> Sort
+                </button>
+            </div>
+        </div>
+    
+            <div class="book-grid" *ngFor="let i of allBooks">
+    <a style="text-decoration: none;" routerLink="/books/:id/singleview">
+                    <div class="book-card" >
+                        <img [src]="i.img" alt="Book Cover" class="book-cover p-2">
+                        <div class="book-info">
+                            <h2 class="book-title">{{i.title}}</h2>
+                            <p class="book-author"><i class="fas fa-user"></i> {{i.author}}</p>
+                            <p class="book-genre"><i class="fas fa-bookmark"></i> {{i.genre}}</p>
+                            <p class="book-price"><i class="fas fa-tag"></i> ${{i.price}}</p>
+                            <p class="book-copies"><i class="fas fa-book"></i> Copies Available: 5</p>
+                        </div>
+                    </div>
+        
+    </a>   
+    
+    
+
+
+
+        </div>
+    </div>
+
+</body> -->
+
+
+<body>
+    <div class="home-container">
+        <header class="header">
+            <h1><i class="fas fa-book"></i> Book Store</h1>
+            <a style="text-decoration: none;" routerLink="/dashboard">
+                <button class="dashboard-btn">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </button>
+            </a>
+        </header>
+
+        <div class="search-filter-container">
+            <input [(ngModel)]="searchData" name="search" type="text" class="search-bar" placeholder="Search books by title or author...">
+            <div class="filter-sort">
+                <div class="filter-dropdown">
+                    <button style="color: white;" class="btn filter-select-wrapper btn-border" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-filter me-2"></i> Filter by Genre
+                    </button>
+                    <ul style="background-color: #466a6ae5; border: none;" class="dropdown-menu text-center" aria-labelledby="filterDropdown">
+                        <li (click)="changeGenre('Fantasy')"><a class="dropdown-item nav-link">Fantasy</a></li>
+                        <li (click)="changeGenre('Mystery')"><a class="dropdown-item nav-link">Mystery</a></li>
+                        <li (click)="changeGenre('Romance')"><a class="dropdown-item nav-link">Romance</a></li>
+                        <li (click)="changeGenre('Fiction')"><a class="dropdown-item nav-link">Fiction</a></li>
+                        <li (click)="changeGenre('Thriller')"><a class="dropdown-item nav-link">Thriller</a></li>
+                        <li (click)="changeGenre('Other')"><a class="dropdown-item nav-link">Other</a></li>
+                        <li (click)="changeGenre('All')"><a class="dropdown-item nav-link">All</a></li>
+                    </ul>
+                </div>
+                <button (click)="sortNames()" class="sort-btn">
+                    <i class="fas fa-sort"></i> Sort
+                </button>
+            </div>
+        </div>
+
+        <div class="book-grid">
+            <div *ngFor="let i of allBooks | filtergenre: selectedGenre | search:searchData |sort : sortData" class="book-card">
+                <a style="text-decoration: none;" routerLink="/books/{{i.id}}/singleview">
+                    <img [src]="i.img || 'https://i.postimg.cc/QxHVxDkV/book-icon-4.png'" alt="Book Cover" class="book-cover p-2">
+                    <div class="book-info">
+                        <h2 class="book-title">{{i.title}}</h2>
+                        <p class="book-author"><i class="fas fa-user"></i> {{i.author}}</p>
+                        <p class="book-genre"><i class="fas fa-bookmark"></i> {{i.genre}}</p>
+                        <p class="book-price"><i class="fas fa-tag"></i> ${{i.price}}</p>
+                        <p [ngClass]="{'book-copies': true, 'in-stock': i.stock > 0, 'out-of-stock': i.stock === 0}">
+                            <i class="fas fa-book"></i>
+                            {{ i.stock > 0 ? 'Copies Available: ' + i.stock : 'Out of Stock' }}
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+            </div>
+</body>
